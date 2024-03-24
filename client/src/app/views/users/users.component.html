@@ -1,0 +1,45 @@
+<c-row ngPreserveWhitespaces>
+    <c-col xs="12">
+      <c-card class="mb-4">
+        <c-card-header>
+          <small>Tabla de </small> <strong>Usuarios</strong> 
+        </c-card-header>
+        <c-card-body>
+          <p class="text-medium-emphasis small">
+            Aquí puedes ver, editar y eliminar usuarios.
+          </p>
+            <table [hover]="true" cTable>
+              <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">RUT</th>
+                <th scope="col">Rol</th>
+              </tr>
+              </thead>
+              <tbody >
+                @for (user of users(); track user._id) {
+                  <tr>
+                    <th >{{$index +1}}</th>
+                    <td>{{user.name}}</td>
+                    <td>{{user.rut}} </td>
+                    <td>{{user.role}}</td>
+                  </tr>
+                }
+              </tbody>
+            </table>
+            <c-pagination>
+              <li cPageItem [disabled]="false">
+                <span cPageLink  (click)="previousPage()">Atrás</span>
+              </li>
+              <li cPageItem>
+                <span cPageLink>Pagína {{currentPage}} de {{totalPages}}</span>
+              </li>
+              <li cPageItem>
+                <button cPageLink (click)="nextPage()">Siguente</button>
+              </li>
+            </c-pagination>
+        </c-card-body>
+      </c-card>
+    </c-col>
+ </c-row>
