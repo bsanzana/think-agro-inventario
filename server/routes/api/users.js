@@ -32,7 +32,20 @@ router.get("/", async (req, res) => {
 router.get("/:userId", async (req, res) => {
   const { userId } = req.params;
   const user = await User.findById(userId);
-  res.json(user);
+  res.json({ user: user });
+});
+
+//Editar un usuario
+
+router.put("/:userId", async (req, res) => {
+  const { userId } = req.params;
+
+  try {
+    const user = await User.findByIdAndUpdate(userId, req.body);
+    res.json(user);
+  } catch (error) {
+    res.json({ error: error.message });
+  }
 });
 
 module.exports = router;

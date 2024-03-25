@@ -16,8 +16,8 @@ export class UserService {
     return firstValueFrom(this.http.get<any>(this.baseURL+'/api/users', {params}));
   }
 
-  getByIdUsers() {
-    return firstValueFrom(this.http.get<any>(this.baseURL + "/api/users/userId"));
+  getByIdUsers(userId:string) {
+    return firstValueFrom(this.http.get<any>(this.baseURL + "/api/users/"+userId));
   }
 
 }

@@ -26,9 +26,9 @@
                     <td>{{user.rut}} </td>
                     <td>{{user.role}}</td>
                     <td>
-                      <button cButton color="info" variant="outline"> <i class="cil-chart-pie"></i>
+                      <button cButton color="info" variant="outline" (click)="seeUser(user._id)" [cModalToggle]="verUsuario.id"> 
                         Ver</button>
-                      <button cButton color="warning" variant="outline">
+                      <button cButton color="warning" variant="outline" (click)="editUser(user._id)"[cModalToggle]="editarUsuario.id">
                         Editar
                       </button>
                       <button cButton color="danger" variant="outline">
@@ -54,3 +54,37 @@
       </c-card>
     </c-col>
  </c-row>
+
+<c-modal size="xl" #editarUsuario backdrop="static" id="editarUsuario">
+  <c-modal-header>
+    <h5 cModalTitle>Modal title</h5>
+    <button [cModalToggle]="editarUsuario.id" cButtonClose></button>
+  </c-modal-header>
+  <c-modal-body><app-form-edit [userId]="userId" /></c-modal-body>
+  <c-modal-footer>
+    <button [cModalToggle]="editarUsuario.id" cButton color="secondary">
+      Close
+    </button>
+    <button cButton color="primary">Understood</button>
+  </c-modal-footer>
+</c-modal>
+
+<c-modal #verUsuario backdrop="static" id="verUsuario">
+  <c-modal-header>
+    <h5 cModalTitle>Datos de <b>{{user.name}}</b></h5>
+    <button [cModalToggle]="verUsuario.id" cButtonClose></button>
+  </c-modal-header>
+  <c-modal-body>
+    <ul cListGroup>
+      <li cListGroupItem><b>RUT: </b>{{user.rut}}</li>
+      <li cListGroupItem><b>Correo: </b>{{user.email}}</li>
+      <li cListGroupItem><b>Bodegas: </b>{{user.warehouses}}</li>
+    </ul>
+    {{user| json}}
+  </c-modal-body>
+  <c-modal-footer>
+    <button [cModalToggle]="verUsuario.id" cButton color="secondary">
+      Cerrar
+    </button>
+  </c-modal-footer>
+</c-modal>
