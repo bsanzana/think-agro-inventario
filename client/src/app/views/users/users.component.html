@@ -12,9 +12,10 @@
               <thead>
               <tr>
                 <th scope="col">#</th>
-                <th scope="col">Nombre</th>
+                <th scope="col">Nombre </th>
                 <th scope="col">RUT</th>
                 <th scope="col">Rol</th>
+                <th scope="col">Acciones</th>
               </tr>
               </thead>
               <tbody >
@@ -24,6 +25,16 @@
                     <td>{{user.name}}</td>
                     <td>{{user.rut}} </td>
                     <td>{{user.role}}</td>
+                    <td>
+                      <button cButton color="info" variant="outline"> <i class="cil-chart-pie"></i>
+                        Ver</button>
+                      <button cButton color="warning" variant="outline">
+                        Editar
+                      </button>
+                      <button cButton color="danger" variant="outline">
+                        Eliminar
+                      </button>
+                    </td>
                   </tr>
                 }
               </tbody>

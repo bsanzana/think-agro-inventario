@@ -2,20 +2,19 @@ const { Router } = require("express");
 
 const router = require("express").Router();
 
-const User = require("../../models/user.model");
+const Warehouses = require("../../models/warehouse.model");
 
-// Traer todos los usuarios
 router.get("/", async (req, res) => {
   try {
     const { page = 1, limit = 10 } = req.query;
-    const users = await User.find()
+    const warehouses = await Warehouses.find()
       .skip((page - 1) * limit)
       .limit(limit);
     try {
-      const totalUsers = await User.countDocuments();
-      const totalPages = Math.ceil(totalUsers / limit);
+      const totalWarehouses = await Warehouses.countDocuments();
+      const totalPages = Math.ceil(totalWarehouses / limit);
       res.json({
-        users: users,
+        warehouses: warehouses,
         currentPage: page,
         totalPages,
       });
@@ -27,12 +26,9 @@ router.get("/", async (req, res) => {
   }
 });
 
-// Traer 1 usuario por su id
-
-router.get("/:userId", async (req, res) => {
-  const { userId } = req.params;
-  const user = await User.findById(userId);
-  res.json(user);
+router.get("/:warehouseId", async (req, res) => {
+  const { warehouseId } = req.params;
+  const warehouse = await Warehouses.findById(warehouseIdrId);
+  res.json(warehouse);
 });
-
 module.exports = router;
