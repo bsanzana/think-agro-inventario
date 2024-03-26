@@ -1,6 +1,5 @@
 const express = require('express');
 const cors = require('cors');
-
 require('dotenv').config()
 require('./config/db');
 
@@ -17,3 +16,4 @@ app.use('/api', require('./routes/api'));
 app.listen(PORT, ()=> {
     console.log(`Server ON port ${PORT}`);
 })
+

@@ -56,11 +56,13 @@ export class UsersComponent {
     password: "",
     __v: 0,
   };
+
+  //Variables para la paginación
   currentPage = 1;
   totalPages = 0;
   limit = 10;
 
-  visible = false;
+  //Servicios
   _userService = inject(UserService);
 
   ngOnInit() {

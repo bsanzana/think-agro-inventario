@@ -1,19 +1,27 @@
-import { NgModule } from '@angular/core';
-import { HashLocationStrategy, LocationStrategy, PathLocationStrategy } from '@angular/common';
-import { BrowserModule, Title } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ReactiveFormsModule } from '@angular/forms';
+import { NgModule } from "@angular/core";
+import {
+  HashLocationStrategy,
+  LocationStrategy,
+  PathLocationStrategy,
+} from "@angular/common";
+import { BrowserModule, Title } from "@angular/platform-browser";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { ReactiveFormsModule } from "@angular/forms";
 
-import { NgScrollbarModule } from 'ngx-scrollbar';
+import { NgScrollbarModule } from "ngx-scrollbar";
 
 // Import routing module
-import { AppRoutingModule } from './app-routing.module';
+import { AppRoutingModule } from "./app-routing.module";
 
 // Import app component
-import { AppComponent } from './app.component';
+import { AppComponent } from "./app.component";
 
 // Import containers
-import { DefaultFooterComponent, DefaultHeaderComponent, DefaultLayoutComponent } from './containers';
+import {
+  DefaultFooterComponent,
+  DefaultHeaderComponent,
+  DefaultLayoutComponent,
+} from "./containers";
 
 import {
   AvatarModule,
@@ -33,16 +41,19 @@ import {
   SharedModule,
   SidebarModule,
   TabsModule,
-  UtilitiesModule
-} from '@coreui/angular';
+  UtilitiesModule,
+} from "@coreui/angular";
 
-import { IconModule, IconSetService } from '@coreui/icons-angular';
-import { HttpClientModule } from '@angular/common/http';
+import { IconModule, IconSetService } from "@coreui/icons-angular";
+import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http";
+import { ToasterModule, ToasterService } from "angular-toaster";
+import { authInterceptor } from "../app/interceptors/auth.interceptor";
+import { provideHttpClient, withInterceptors } from "@angular/common/http";
 
 const APP_CONTAINERS = [
   DefaultFooterComponent,
   DefaultHeaderComponent,
-  DefaultLayoutComponent
+  DefaultLayoutComponent,
 ];
 
 @NgModule({
@@ -74,17 +85,18 @@ const APP_CONTAINERS = [
     BadgeModule,
     ListGroupModule,
     CardModule,
-    NgScrollbarModule
+    NgScrollbarModule,
   ],
   providers: [
+    provideHttpClient(withInterceptors([authInterceptor])),
     {
       provide: LocationStrategy,
-      useClass: HashLocationStrategy
+      useClass: HashLocationStrategy,
     },
     IconSetService,
-    Title
+    Title,
+    ToasterService,
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule {
-}
+export class AppModule {}

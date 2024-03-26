@@ -35,6 +35,7 @@
     "@coreui/icons": "^3.0.1",
     "@coreui/icons-angular": "~4.7.14",
     "@coreui/utils": "^2.0.2",
+    "angular-toaster": "^1.5.2",
     "bootstrap": "^5.3.3",
     "chart.js": "^3.9.1",
     "lodash-es": "^4.17.21",

@@ -95,7 +95,7 @@ export class FormEditComponent {
     this.loadUser();
   }
 
-  async loadUser() {
+  async loadUser():Promise<void> {
     if (this.userId != undefined) {
       const response = await this._userService.getByIdUsers(this.userId);
       this.user = response.user;
