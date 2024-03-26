@@ -1,21 +1,26 @@
-import { Component, Input } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { Component, Input, inject } from "@angular/core";
+import { Router } from "@angular/router";
 
-import { ClassToggleService, HeaderComponent } from '@coreui/angular';
+import { ClassToggleService, HeaderComponent } from "@coreui/angular";
 
 @Component({
-  selector: 'app-default-header',
-  templateUrl: './default-header.component.html',
+  selector: "app-default-header",
+  templateUrl: "./default-header.component.html",
 })
 export class DefaultHeaderComponent extends HeaderComponent {
-
   @Input() sidebarId: string = "sidebar";
-
-  public newMessages = new Array(4)
-  public newTasks = new Array(5)
-  public newNotifications = new Array(5)
+  router = inject(Router);
+  public newMessages = new Array(4);
+  public newTasks = new Array(5);
+  public newNotifications = new Array(5);
 
   constructor(private classToggler: ClassToggleService) {
     super();
+  }
+
+  logOut() {
+    localStorage.removeItem("token");
+    console.log("hola");
+    this.router.navigate(["/login"]);
   }
 }
