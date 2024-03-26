@@ -20,4 +20,8 @@ export class UserService {
     return firstValueFrom(this.http.get<any>(this.baseURL + "/api/users/"+userId));
   }
 
+  editUser(userId:string, formValues:any) {
+    return firstValueFrom(this.http.put<any>(this.baseURL + "/api/users/"+userId, formValues));
+  }
+
 }

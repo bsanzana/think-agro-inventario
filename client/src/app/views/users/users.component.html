@@ -55,17 +55,13 @@
     </c-col>
  </c-row>
 
-<c-modal size="xl" #editarUsuario backdrop="static" id="editarUsuario">
+<c-modal  size="xl" #editarUsuario backdrop="static" id="editarUsuario">
   <c-modal-header>
-    <h5 cModalTitle>Modal title</h5>
-    <button [cModalToggle]="editarUsuario.id" cButtonClose></button>
+    <h5 cModalTitle><b>Editando</b></h5>
+    <button [cModalToggle]="editarUsuario.id" cButtonClose id="cerrar"></button>
   </c-modal-header>
-  <c-modal-body><app-form-edit [userId]="userId" /></c-modal-body>
+  <c-modal-body><app-form-edit (closeModal)="updateUsers()" [userId]="userId" /></c-modal-body>
   <c-modal-footer>
-    <button [cModalToggle]="editarUsuario.id" cButton color="secondary">
-      Close
-    </button>
-    <button cButton color="primary">Understood</button>
   </c-modal-footer>
 </c-modal>
 

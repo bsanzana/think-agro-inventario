@@ -1,63 +1,77 @@
-<form 
-      [gutter]="3"
-      novalidate
-      cForm cRow
-      class="needs-validation"
+<form
+  [formGroup]="formEdit"
+  [gutter]="3"
+  novalidate
+  cForm
+  cRow
+  class="needs-validation"
 >
   <c-col [md]="12">
     <label cLabel for="name">Nombre</label>
-    <input cFormControl id="name" required type="text" value="{{user.name}}" />
-    <c-form-feedback [valid]="true">Looks good!</c-form-feedback>
+    <input
+      cFormControl
+      formControlName="name"
+      id="name"
+      required
+      type="text"
+    />
+    <p *ngIf="f['name'].hasError('required')" class="error">Nombre requerido</p>
   </c-col>
+
+  <c-col [md]="12">
+    <label cLabel for="rut">RUT</label>
+    <input
+      cFormControl
+      formControlName="rut"
+      id="rut"
+      required
+      type="text"
+    />
+    <!--
+      Agregar estos parametros, para tener un input valido completo para rut 
+      rutFormat
+    rutDefault
+  <p *ngIf="formEdit.controls['rut'].hasError('rutdefault')" class="error">RUT inválido</p>-->
+
+    <p *ngIf="f['rut'].hasError('required')" class="error">RUT requerido</p>
+  </c-col>
+<!--
   <c-col [md]="4">
-    <label cLabel for="validationCustom02">Last name</label>
-    <input cFormControl id="validationCustom02" required type="text" value="Otto" />
-    <c-form-feedback [valid]="true">Looks good!</c-form-feedback>
+    <label cLabel for="password">Contrasena</label>
+    <input
+      cFormControl
+      formControlName="password"
+      id="password"
+      required
+      type="password"
+    />
   </c-col>
-  <c-col [md]="4">
-    <label cLabel for="validationCustomUsername">Username</label>
-    <c-input-group class="has-validation">
-      <span cInputGroupText id="inputGroupPrepend">&#64;</span>
-      <input aria-describedby="inputGroupPrepend"
-             cFormControl
-             id="validationCustomUsername"
-             required
-             type="text"
-      />
-      <c-form-feedback [valid]="false">Please choose a username.</c-form-feedback>
-    </c-input-group>
-  </c-col>
-  <c-col [md]="6">
-    <label cLabel for="validationCustom03">City</label>
-    <input cFormControl id="validationCustom03" required type="text" />
-    <c-form-feedback [valid]="false">Please provide a valid city.</c-form-feedback>
-  </c-col>
-  <c-col [md]="3">
-    <label cLabel for="validationCustom04">State</label>
-    <select cSelect id="validationCustom04" required>
-      <option value="">Choose...</option>
-      <option>...</option>
-    </select>
-    <c-form-feedback [valid]="false">Please provide a valid State.</c-form-feedback>
-  </c-col>
-  <c-col [md]="3">
-    <label cLabel for="validationCustom05">Zip code</label>
-    <input cFormControl id="validationCustom05" required type="text" />
-    <c-form-feedback [valid]="false">Please provide a valid zip.</c-form-feedback>
-  </c-col>
-  <c-col [xs]="12">
-    <c-form-check>
-      <input cFormCheckInput id="invalidCheck" name="invalidCheck" required type="checkbox" />
-      <label cFormCheckLabel for="invalidCheck">Agree to terms and conditions</label>
-    </c-form-check>
-    <c-form-feedback [valid]="false">You must agree before submitting.</c-form-feedback>
-  </c-col>
-  <c-col [xs]="12">
-    <button cButton class="me-1" color="primary" type="submit">
-      Submit form
+  <c-col [md]="2">
+    <button
+      cButton
+      onclick="if (password.type == 'text') password.type = 'password';
+      else password.type = 'text';"
+    >
+      Ver
     </button>
-    <button  cButton color="secondary" type="reset">
-      Reset
+  </c-col>
+-->
+  <c-col [xs]="12">
+    <button
+      cButton
+      class="me-1"
+      color="primary"
+      variant="outline"
+      type="submit"
+      [disabled]="!formEdit.valid"
+      (click)="onSubmit()"
+      (click)="closeModalComponent()"
+      
+    >
+      Actualizar usuario
+    </button>
+    <button cButton color="secondary" variant="outline" type="reset">
+      Resetear
     </button>
   </c-col>
 </form>

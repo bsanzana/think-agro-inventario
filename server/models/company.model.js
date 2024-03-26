@@ -48,4 +48,5 @@ var companySchema = new Schema({
   timestamps: true
 });
 
-mongoose.model('Company', companySchema);
+
+module.exports =  mongoose.model('companies', companySchema);

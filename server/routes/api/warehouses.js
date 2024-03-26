@@ -31,4 +31,12 @@ router.get("/:warehouseId", async (req, res) => {
   const warehouse = await Warehouses.findById(warehouseIdrId);
   res.json(warehouse);
 });
+
+
+//Consultar por las bodegas encargadas por un usuario ID
+router.get("/managers/:userId", async (req, res) => {
+  const { userId } = req.params;
+  const managers = await Warehouses.find({ managers: userId });
+  res.json({managers:managers});
+});
 module.exports = router;

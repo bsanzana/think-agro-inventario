@@ -6,7 +6,7 @@ const router = require('express').Router();
 router.use('/users', require('./api/users'));
 router.use('/login', require('./api/login'));
 
-router.use('/warehouse', require('./api/warehouse'));
-router.use('/company', require('./api/company'));
+router.use('/warehouses', require('./api/warehouses'));
+router.use('/companies', require('./api/companies'));
 
 module.exports = router;

@@ -28,4 +28,5 @@ let warehouseSchema = new Schema({
   timestamps: true
 });
 
-mongoose.model('Warehouse', warehouseSchema);
+
+module.exports =  mongoose.model('warehouses', warehouseSchema);
