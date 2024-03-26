@@ -11,6 +11,7 @@ import {
 } from "@coreui/angular";
 
 import { UserService } from "../../services/user.service";
+import { TokenService } from "../../services/token.service";
 import { CommonModule } from "@angular/common";
 import { User } from "../../interfaces/user";
 import { FormControl, FormGroup } from "@angular/forms";
@@ -64,7 +65,7 @@ export class UsersComponent {
 
   //Servicios
   _userService = inject(UserService);
-
+ _tokenService = inject(TokenService);
   ngOnInit() {
     this.loadUsers();
   }
@@ -75,9 +76,11 @@ export class UsersComponent {
     boton!.click();
   }
   async loadUsers(): Promise<void> {
+    const tokenUser = this._tokenService.decodeToken(localStorage.getItem('token'));
     const response = await this._userService.getAllUser(
       this.currentPage,
-      this.limit
+      this.limit,
+      localStorage.getItem('token')
     );
     this.users.set(response.users);
     this.totalPages = response.totalPages;

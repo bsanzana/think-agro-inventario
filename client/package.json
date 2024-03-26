@@ -38,6 +38,8 @@
     "angular-toaster": "^1.5.2",
     "bootstrap": "^5.3.3",
     "chart.js": "^3.9.1",
+    "jsonwebtoken": "^9.0.2",
+    "jwt-decode": "^4.0.0",
     "lodash-es": "^4.17.21",
     "ngx-rut-validation": "^17.0.0",
     "ngx-scrollbar": "^13.0.3",

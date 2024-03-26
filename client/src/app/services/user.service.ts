@@ -11,8 +11,8 @@ export class UserService {
   http = inject(HttpClient);
   constructor() {}
 
-  getAllUser(page: number, limit: number) {
-    const params = {page: page.toString(), limit:limit.toString()}
+  getAllUser(page: number, limit: number, token:any) {
+    const params = {page: page.toString(), limit:limit.toString(), token:token}
     return firstValueFrom(this.http.get<any>(this.baseURL+'/api/users', {params}));
   }
 

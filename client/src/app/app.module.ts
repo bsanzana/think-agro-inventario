@@ -2,7 +2,6 @@ import { NgModule } from "@angular/core";
 import {
   HashLocationStrategy,
   LocationStrategy,
-  PathLocationStrategy,
 } from "@angular/common";
 import { BrowserModule, Title } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
@@ -45,8 +44,8 @@ import {
 } from "@coreui/angular";
 
 import { IconModule, IconSetService } from "@coreui/icons-angular";
-import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http";
-import { ToasterModule, ToasterService } from "angular-toaster";
+import { HttpClientModule } from "@angular/common/http";
+import { ToasterService } from "angular-toaster";
 import { authInterceptor } from "../app/interceptors/auth.interceptor";
 import { provideHttpClient, withInterceptors } from "@angular/common/http";
 

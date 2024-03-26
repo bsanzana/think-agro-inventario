@@ -1,18 +1,24 @@
-const { Router } = require("express");
+const { Router, json } = require("express");
 
 const router = require("express").Router();
 
 const User = require("../../models/user.model");
 
+const jwt = require("jsonwebtoken");
+
 // Traer todos los usuarios
 router.get("/", async (req, res) => {
   try {
     const { page = 1, limit = 10 } = req.query;
-    const users = await User.find()
+    //No logre pasar nunca un objeto por aca, asi que pase el token y lo decodifique
+    const tokenDecoded = jwt.verify(req.query.token, process.env.JWT_SECRET);
+    const users = await User.find({ company: tokenDecoded.company })
       .skip((page - 1) * limit)
       .limit(limit);
     try {
-      const totalUsers = await User.countDocuments();
+      const totalUsers = await User.countDocuments({
+        company: tokenDecoded.company,
+      });
       const totalPages = Math.ceil(totalUsers / limit);
       res.json({
         users: users,

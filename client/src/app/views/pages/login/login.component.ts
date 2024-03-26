@@ -27,6 +27,11 @@ export class LoginComponent {
     });
   }
 
+  ngOnInit() {
+    if (localStorage.getItem("token")) {
+      this.router.navigate(["/dashboard"]);
+    }
+  }
   async onSubmit(): Promise<void> {
     this.submitted = true;
     const response = await this._loginService.login(this.formLogin.value);
