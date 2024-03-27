@@ -1,86 +1,95 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { NgModule } from "@angular/core";
+import { RouterModule, Routes } from "@angular/router";
 
-import { DefaultLayoutComponent } from './containers';
-import { Page404Component } from './views/pages/page404/page404.component';
-import { Page500Component } from './views/pages/page500/page500.component';
-import { LoginComponent } from './views/pages/login/login.component';
-import { RegisterComponent } from './views/pages/register/register.component';
-import { UsersComponent } from './views/users/users.component';
-import {checkToken} from './guard/checkToken.guard';
+import { DefaultLayoutComponent } from "./containers";
+import { Page404Component } from "./views/pages/page404/page404.component";
+import { Page500Component } from "./views/pages/page500/page500.component";
+import { LoginComponent } from "./views/pages/login/login.component";
+import { RegisterComponent } from "./views/pages/register/register.component";
+import { UsersComponent } from "./views/users/users.component";
+import { WarehousesComponent } from "./views/warehouses/warehouses.component";
+import { checkToken } from "./guard/checkToken.guard";
 const routes: Routes = [
   {
-    path: '',
-    redirectTo: 'login',
-    pathMatch: 'full',
+    path: "",
+    redirectTo: "login",
+    pathMatch: "full",
   },
   {
-    path: '',
-    component: DefaultLayoutComponent,
-    canActivate:[checkToken],
+    path: "warehouses",
+    component: WarehousesComponent,
     data: {
-      title: 'Home'
+      title: "Bodegas",
+    },
+    canActivate: [checkToken],
+  },
+  {
+    path: "",
+    component: DefaultLayoutComponent,
+    canActivate: [checkToken],
+    data: {
+      title: "Home",
     },
     children: [
       {
-        path: 'dashboard',
+        path: "dashboard",
         loadChildren: () =>
-          import('./views/dashboard/dashboard.module').then((m) => m.DashboardModule)
+          import("./views/dashboard/dashboard.module").then(
+            (m) => m.DashboardModule
+          ),
       },
       {
-        path: 'pages',
+        path: "pages",
         loadChildren: () =>
-          import('./views/pages/pages.module').then((m) => m.PagesModule)
+          import("./views/pages/pages.module").then((m) => m.PagesModule),
       },
       {
-        path: 'users',
+        path: "users",
         component: UsersComponent,
-    canActivate:[checkToken]
+        canActivate: [checkToken],
       },
-        
-    ]
+    ],
   },
   {
-    path: '404',
+    path: "404",
     component: Page404Component,
     data: {
-      title: 'Page 404'
-    }
+      title: "Page 404",
+    },
   },
   {
-    path: '500',
+    path: "500",
     component: Page500Component,
     data: {
-      title: 'Page 500'
-    }
+      title: "Page 500",
+    },
   },
   {
-    path: 'login',
+    path: "login",
     component: LoginComponent,
     data: {
-      title: 'Login Page'
-    }
+      title: "Login Page",
+    },
   },
   {
-    path: 'register',
+    path: "register",
     component: RegisterComponent,
     data: {
-      title: 'Register Page'
-    }
+      title: "Register Page",
+    },
   },
-  {path: '**', redirectTo: 'login'}
+  { path: "**", redirectTo: "login" },
 ];
 
 @NgModule({
   imports: [
     RouterModule.forRoot(routes, {
-      scrollPositionRestoration: 'top',
-      anchorScrolling: 'enabled',
-      initialNavigation: 'enabledBlocking'
+      scrollPositionRestoration: "top",
+      anchorScrolling: "enabled",
+      initialNavigation: "enabledBlocking",
       // relativeLinkResolution: 'legacy'
-    })
+    }),
   ],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule {
-}
+export class AppRoutingModule {}

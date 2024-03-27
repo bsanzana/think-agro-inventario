@@ -38,7 +38,7 @@ export class LoginComponent {
     if (!response.error) {
       this._toasterService.pop("success", "Acceso aceptado!");
       localStorage.setItem("token", response.token);
-      this.router.navigate(["/dashboard"]);
+      this.router.navigate(["/warehouses"]);
     } else {
       this._toasterService.pop(
         "error",
