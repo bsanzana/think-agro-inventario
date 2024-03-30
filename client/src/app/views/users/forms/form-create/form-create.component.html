@@ -1,0 +1,103 @@
+<form
+  [formGroup]="formCreate"
+  [gutter]="3"
+  novalidate
+  cForm
+  cRow
+  class="needs-validation"
+>
+  <c-col [md]="12">
+    <label cLabel for="name">Nombre</label>
+    <input cFormControl formControlName="name" id="name" required type="text" />
+    <p
+      *ngIf="f['name'].hasError('required') && f['name'].touched"
+      class="error"
+    >
+      Nombre requerido
+    </p>
+  </c-col>
+
+  <c-col [md]="12">
+    <label cLabel for="rut">RUT</label>
+    <input cFormControl formControlName="rut" id="rut" required type="text" />
+    <p *ngIf="f['rut'].hasError('required') && f['rut'].touched" class="error">
+      RUT requerido
+    </p>
+  </c-col>
+  <c-col [md]="8">
+    <label cLabel for="password">Contraseña</label>
+    <input
+      cFormControl
+      formControlName="password"
+      id="password"
+      required
+      type="password"
+    />
+    <p
+      *ngIf="f['password'].hasError('required') && f['password'].touched"
+      class="error"
+    >
+      Contraseña requerida
+    </p>
+  </c-col>
+  <c-col [xs]="2">
+    <button
+      cButton
+      class="me-1"
+      variant="outline"
+      type="button"
+      onclick="if (password.type == 'text') password.type = 'password';
+      else password.type = 'text';"
+    >
+      Ver
+    </button>
+  </c-col>
+  <c-col [md]="12">
+    <label cLabel for="phone">Celular</label>
+    <input
+      cFormControl
+      formControlName="phone"
+      id="phone"
+      required
+      type="phone"
+    />
+    <p
+      *ngIf="f['phone'].hasError('phone') && f['phone'].touched"
+      class="error"
+    >
+      Celular requerido
+    </p>
+  </c-col>
+  <c-col [md]="12">
+    <label cLabel for="email">Correo</label>
+    <input
+      cFormControl
+      formControlName="email"
+      id="email"
+      required
+      type="email"
+    />
+    <p
+      *ngIf="f['email'].hasError('required') && f['email'].touched"
+      class="error"
+    >
+      Correo requerido
+    </p>
+  </c-col>
+  <c-col [xs]="12">
+    <button
+      cButton
+      class="me-1"
+      color="success"
+      variant="outline"
+      type="submit"
+      [disabled]="!formCreate.valid"
+      (click)="onSubmit()"
+    >
+      Crear usuario 
+    </button>
+    <button cButton color="secondary" variant="outline" type="reset">
+      Resetear
+    </button>
+  </c-col>
+</form>

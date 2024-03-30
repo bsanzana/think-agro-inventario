@@ -24,4 +24,11 @@ export class UserService {
     return firstValueFrom(this.http.put<any>(this.baseURL + "/api/users/"+userId, formValues));
   }
 
+  create(formValue:any){
+    return firstValueFrom(this.http.post<any>(this.baseURL + "/api/users/create/", formValue));
+  }
+
+  deleteUser(userId:string){
+    return firstValueFrom(this.http.delete<any>(this.baseURL + "/api/users/delete/"+userId));
+  }
 }

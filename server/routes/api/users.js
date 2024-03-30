@@ -54,4 +54,29 @@ router.put("/:userId", async (req, res) => {
   }
 });
 
+//Crear usuario
+
+router.post("/create", async (req, res) => {
+  const { user } = req.body;
+
+  try {
+    const user = await User.create(req.body);
+    res.json({ user: user });
+  } catch (error) {
+    res.json({ error: error.message });
+  }
+});
+
+//Crear usuario
+
+router.delete("/delete/:userId", async (req, res) => {
+  const { userId } = req.params;
+
+  try {
+    const user = await User.findByIdAndDelete(userId, req.body);
+    res.json({user:user});
+  } catch (error) {
+    res.json({ error: error.message });
+  }
+});
 module.exports = router;

@@ -14,9 +14,11 @@ import { UserService } from "../../services/user.service";
 import { TokenService } from "../../services/token.service";
 import { CommonModule } from "@angular/common";
 import { User } from "../../interfaces/user";
-import { FormControl, FormGroup } from "@angular/forms";
+import { ToasterModule, ToasterService } from "angular-toaster";
 
 import { FormEditComponent } from "./forms/form-edit/form-edit.component";
+import { FormCreateComponent } from "./forms/form-create/form-create.component";
+
 @Component({
   selector: "app-users",
   standalone: true,
@@ -31,6 +33,8 @@ import { FormEditComponent } from "./forms/form-edit/form-edit.component";
     ModalModule,
     ListGroupModule,
     FormEditComponent,
+    FormCreateComponent,
+    ToasterModule,
   ],
   templateUrl: "./users.component.html",
   styleUrl: "./users.component.scss",
@@ -65,22 +69,23 @@ export class UsersComponent {
 
   //Servicios
   _userService = inject(UserService);
- _tokenService = inject(TokenService);
+  _tokenService = inject(TokenService);
+  toasterService = inject(ToasterService);
   ngOnInit() {
     this.loadUsers();
   }
 
-  updateUsers() {
+  closeModal(id: string) {
     this.loadUsers();
-    const boton = document.getElementById("cerrar");
+    const boton = document.getElementById(id);
     boton!.click();
+    this.loadUsers();
   }
   async loadUsers(): Promise<void> {
-    const tokenUser = this._tokenService.decodeToken(localStorage.getItem('token'));
     const response = await this._userService.getAllUser(
       this.currentPage,
       this.limit,
-      localStorage.getItem('token')
+      localStorage.getItem("token")
     );
     this.users.set(response.users);
     this.totalPages = response.totalPages;
@@ -93,6 +98,18 @@ export class UsersComponent {
 
   editUser(userId: string) {
     this.userId = userId;
+  }
+
+  async deleteUsuario() {
+    const response = await this._userService.deleteUser(this.userId);
+    if(!response.error){
+
+      this.toasterService.pop("success", "Usuario elimnado con exito!");
+    }else{
+
+      this.toasterService.pop("error", "Usuario no fue elimnado", response.error);
+    }
+    this.loadUsers();
   }
 
   previousPage() {

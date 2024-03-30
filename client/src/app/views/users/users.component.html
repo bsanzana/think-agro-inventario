@@ -1,82 +1,137 @@
 <c-row ngPreserveWhitespaces>
-    <c-col xs="12">
-      <c-card class="mb-4">
-        <c-card-header>
-          <small>Tabla de </small> <strong>Usuarios</strong> 
-        </c-card-header>
-        <c-card-body>
-          <p class="text-medium-emphasis small">
-            Aquí puedes ver, editar y eliminar usuarios.
-          </p>
-            <table [hover]="true" cTable>
-              <thead>
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">Nombre </th>
-                <th scope="col">RUT</th>
-                <th scope="col">Rol</th>
-                <th scope="col">Acciones</th>
-              </tr>
-              </thead>
-              <tbody >
-                @for (user of users(); track user._id) {
-                  <tr>
-                    <th >{{$index +1}}</th>
-                    <td>{{user.name}}</td>
-                    <td>{{user.rut}} </td>
-                    <td>{{user.role}}</td>
-                    <td>
-                      <button cButton color="info" variant="outline" (click)="seeUser(user._id)" [cModalToggle]="verUsuario.id"> 
-                        Ver</button>
-                      <button cButton color="warning" variant="outline" (click)="editUser(user._id)"[cModalToggle]="editarUsuario.id">
-                        Editar
-                      </button>
-                      <button cButton color="danger" variant="outline">
-                        Eliminar
-                      </button>
-                    </td>
-                  </tr>
-                }
-              </tbody>
-            </table>
-            <c-pagination>
-              <li cPageItem [disabled]="false">
-                <span cPageLink  (click)="previousPage()">Atrás</span>
-              </li>
-              <li cPageItem>
-                <span cPageLink>Pagína {{currentPage}} de {{totalPages}}</span>
-              </li>
-              <li cPageItem>
-                <button cPageLink (click)="nextPage()">Siguente</button>
-              </li>
-            </c-pagination>
-        </c-card-body>
-      </c-card>
-    </c-col>
- </c-row>
+  <c-col xs="12">
+    <c-card class="mb-4">
+      <c-card-header>
+        <small>Tabla de </small> <strong>Usuarios</strong>
+      </c-card-header>
+      <c-card-body>
+        <p class="text-medium-emphasis small">
+          Aquí puedes ver, editar y eliminar usuarios.
+        </p>
+        <button
+          cButton
+          color="success"
+          variant="outline"
+          [cModalToggle]="crearUsuario.id"
+        >
+          Crear Usuario
+        </button>
+        <table [hover]="true" cTable>
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Nombre</th>
+              <th scope="col">RUT</th>
+              <th scope="col">Rol</th>
+              <th scope="col">Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (user of users(); track user._id) {
+            <tr>
+              <th>{{ $index + 1 }}</th>
+              <td>{{ user.name }}</td>
+              <td>{{ user.rut }}</td>
+              <td>{{ user.role }}</td>
+              <td>
+                <button
+                  cButton
+                  color="info"
+                  variant="outline"
+                  (click)="seeUser(user._id)"
+                  [cModalToggle]="verUsuario.id"
+                >
+                  Ver
+                </button>
+                <button
+                  cButton
+                  color="warning"
+                  variant="outline"
+                  (click)="editUser(user._id)"
+                  [cModalToggle]="editarUsuario.id"
+                >
+                  Editar
+                </button>
+                <button
+                  cButton
+                  color="danger"
+                  variant="outline"
+                  [cModalToggle]="deleteUser.id"
+                  (click)="editUser(user._id)"
+                  (click)="seeUser(user._id)"
+                >
+                  Eliminar
+                </button>
+              </td>
+            </tr>
+            }
+          </tbody>
+        </table>
+        <c-pagination>
+          <li cPageItem [disabled]="false">
+            <span cPageLink (click)="previousPage()">Atrás</span>
+          </li>
+          <li cPageItem>
+            <span cPageLink>Pagína {{ currentPage }} de {{ totalPages }}</span>
+          </li>
+          <li cPageItem>
+            <button cPageLink (click)="nextPage()">Siguente</button>
+          </li>
+        </c-pagination>
+      </c-card-body>
+    </c-card>
+  </c-col>
+</c-row>
 
-<c-modal  size="xl" #editarUsuario backdrop="static" id="editarUsuario">
+<c-modal size="xl" #editarUsuario backdrop="static" id="editarUsuario">
   <c-modal-header>
     <h5 cModalTitle><b>Editando</b></h5>
-    <button [cModalToggle]="editarUsuario.id" cButtonClose id="cerrar"></button>
+    <button
+      [cModalToggle]="editarUsuario.id"
+      cButtonClose
+      id="cerrarModalEditar"
+    ></button>
   </c-modal-header>
-  <c-modal-body><app-form-edit (closeModal)="updateUsers()" [userId]="userId" /></c-modal-body>
-  <c-modal-footer>
-  </c-modal-footer>
+  <c-modal-body
+    ><app-form-edit
+      (closeModal)="closeModal('cerrarModalEditar')"
+      [userId]="userId"
+  /></c-modal-body>
+  <c-modal-footer> </c-modal-footer>
+</c-modal>
+
+<c-modal size="sm" #crearUsuario backdrop="static" id="crearUsuario">
+  <c-modal-header>
+    <h5 cModalTitle><b>Creando Usuario</b></h5>
+    <button
+      [cModalToggle]="crearUsuario.id"
+      cButtonClose
+      id="cerrarModalCrear"
+    ></button>
+  </c-modal-header>
+  <c-modal-body
+    ><app-form-create (closeModal)="closeModal('cerrarModalCrear')"
+  /></c-modal-body>
+  <c-modal-footer> </c-modal-footer>
 </c-modal>
 
 <c-modal #verUsuario backdrop="static" id="verUsuario">
   <c-modal-header>
-    <h5 cModalTitle>Datos de <b>{{user.name}}</b></h5>
+    <h5 cModalTitle>
+      Datos de <b>{{ user.name }}</b>
+    </h5>
     <button [cModalToggle]="verUsuario.id" cButtonClose></button>
   </c-modal-header>
   <c-modal-body>
     <ul cListGroup>
-      <li cListGroupItem><b>RUT: </b>{{user.rut}}</li>
-      <li cListGroupItem><b>Correo: </b>{{user.email}}</li>
-      <li cListGroupItem><b>Bodegas: </b>{{user.warehouses}}</li>
+      <li cListGroupItem><b>RUT: </b>{{ user.rut }}</li>
+      <li cListGroupItem><b>Correo: </b>{{ user.email }}</li>
+      <li cListGroupItem><b>Bodegas: </b>{{ user.warehouses }}</li>
+      <li cListGroupItem><b>Compañia: </b>{{ user.company }}</li>
+      <li cListGroupItem>
+        <b>Actualizado: </b>{{ user.updatedAt | date : "medium" }}
+      </li>
     </ul>
-    {{user| json}}
   </c-modal-body>
   <c-modal-footer>
     <button [cModalToggle]="verUsuario.id" cButton color="secondary">
@@ -84,3 +139,21 @@
     </button>
   </c-modal-footer>
 </c-modal>
+
+<c-modal #deleteUser backdrop="static" id="deleteUser">
+  <c-modal-header>
+    <h5 cModalTitle>
+      Datos de <b>{{ user.name }}</b>
+    </h5>
+    <button [cModalToggle]="deleteUser.id" cButtonClose></button>
+  </c-modal-header>
+  <c-modal-body>
+    <p>¿Quieres eliminar {{ user.name }} para siempre?</p>
+  </c-modal-body>
+  <c-modal-footer>
+    <button [cModalToggle]="deleteUser.id" 
+    (click)="deleteUsuario()" cButton color="danger">Si</button>
+    <button [cModalToggle]="deleteUser.id" cButton color="secondary">No</button>
+  </c-modal-footer>
+</c-modal>
+<toaster-container></toaster-container>

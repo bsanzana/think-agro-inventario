@@ -10,7 +10,9 @@ export class TokenService {
   constructor() { }
 
 
-  decodeToken(token:any) {
-    return jwtDecode(token);
+  decodeToken() {
+    const token = localStorage.getItem("token");
+    const tokenDecode =jwtDecode(token!);
+    return JSON.parse(JSON.stringify(tokenDecode));
   }
 }
