@@ -41,4 +41,30 @@ router.get("/managers/:userId", async (req, res) => {
   const managers = await Warehouses.find({ managers: userId });
   res.json({ managers: managers });
 });
+
+
+//Crear bodega
+
+router.post("/create", async (req, res) => {
+  const { warehouse } = req.body;
+
+  try {
+    const warehouse = await Warehouses.create(req.body);
+    res.json({ warehouse: warehouse });
+  } catch (error) {
+    res.json({ error: error.message });
+  }
+});
+
+//Actualizar 
+router.put("/:userId", async (req, res) => {
+  const { userId } = req.params;
+
+  try {
+    const user = await User.findByIdAndUpdate(userId, req.body);
+    res.json(user);
+  } catch (error) {
+    res.json({ error: error.message });
+  }
+});
 module.exports = router;

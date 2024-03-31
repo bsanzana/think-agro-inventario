@@ -5,6 +5,7 @@ const router = require("express").Router();
 const User = require("../../models/user.model");
 
 const jwt = require("jsonwebtoken");
+const crypto = require("crypto");
 
 // Traer todos los usuarios
 router.get("/", async (req, res) => {
@@ -57,8 +58,15 @@ router.put("/:userId", async (req, res) => {
 //Crear usuario
 
 router.post("/create", async (req, res) => {
-  const { user } = req.body;
+  password = req.body.password;
+  salt = crypto.randomBytes(16).toString("hex");
+  hash = crypto
+    .pbkdf2Sync(password, salt, 1000, 64, "sha1")
+    .toString("hex");
 
+  req.body["hash"] = hash;
+  req.body["salt"] = salt;
+  delete req.body.password;
   try {
     const user = await User.create(req.body);
     res.json({ user: user });
@@ -67,14 +75,14 @@ router.post("/create", async (req, res) => {
   }
 });
 
-//Crear usuario
+//eliminar usuario
 
 router.delete("/delete/:userId", async (req, res) => {
   const { userId } = req.params;
 
   try {
     const user = await User.findByIdAndDelete(userId, req.body);
-    res.json({user:user});
+    res.json({ user: user });
   } catch (error) {
     res.json({ error: error.message });
   }
