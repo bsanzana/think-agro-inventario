@@ -1,0 +1,103 @@
+<c-row ngPreserveWhitespaces>
+    <c-col xs="12">
+      <c-card class="mb-4">
+        <c-card-header>
+          <small>Tabla de </small> <strong>Bodegas</strong>
+        </c-card-header>
+        <c-card-body>
+          <p class="text-medium-emphasis small">
+            Aquí puedes ver, editar y eliminar bodegas.
+          </p>
+          <button
+            cButton
+            color="success"
+            variant="outline"
+            [cModalToggle]=""
+          >
+            Crear Bodega
+          </button>
+          <table [hover]="true" cTable>
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nombre</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (warehouse of warehouses; track warehouse._id) {
+              <tr>
+                <th>{{ $index + 1 }}</th>
+                <td>{{ warehouse.name }}</td>
+                <td>
+                  <button
+                    cButton
+                    color="info"
+                    variant="outline"
+                    [cModalToggle]="verBodega.id"
+                    (click)="seeWarehouse(warehouse._id)"
+                  >
+                    Ver
+                  </button>
+                  <button
+                    cButton
+                    color="warning"
+                    variant="outline"
+                    [cModalToggle]=""
+                  >
+                    Editar
+                  </button>
+                  <button
+                    cButton
+                    color="danger"
+                    variant="outline"
+                    [cModalToggle]=""
+                  >
+                    Eliminar
+                  </button>
+                </td>
+              </tr>
+              }
+            </tbody>
+          </table>
+          <c-pagination>
+            <li cPageItem [disabled]="false">
+              <span cPageLink (click)="previousPage()">Atrás</span>
+            </li>
+            <li cPageItem>
+              <span cPageLink>Pagína {{ currentPage }} de {{ totalPages }}</span>
+            </li>
+            <li cPageItem>
+              <button cPageLink (click)="nextPage()">Siguente</button>
+            </li>
+          </c-pagination>
+        </c-card-body>
+      </c-card>
+    </c-col>
+  </c-row>
+
+
+  <c-modal #verBodega id="verBodega">
+    <c-modal-header>
+      <h5 cModalTitle>
+        Datos de <b>{{ warehouse.name }}</b>
+      </h5>
+      <button [cModalToggle]="verBodega.id" cButtonClose></button>
+    </c-modal-header>
+    <c-modal-body>
+      <h5 cModalTitle>
+        Encagardos:
+      </h5>
+      <ul cListGroup>
+        @for (item of managers; track $index) {
+
+        <li cListGroupItem>{{ item }}</li>
+        }
+      </ul>
+    </c-modal-body>
+    <c-modal-footer>
+      <button [cModalToggle]="verBodega.id" cButton color="secondary">
+        Cerrar
+      </button>
+    </c-modal-footer>
+  </c-modal>
+  

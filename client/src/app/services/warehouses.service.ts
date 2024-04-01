@@ -25,6 +25,14 @@ export class WarehousesService {
   getWarehousesByIduser(userId:string) {
     return firstValueFrom(this.http.get<any>(this.baseURL + '/api/warehouses/managers/'+userId));
   }
+
+  createWarehouse(formValues:any) {
+    return firstValueFrom(this.http.post<any>(this.baseURL + '/api/warehouses/create', formValues));
+  }
+
+  editWarehouse(warehouseId:string, formValues:any) {
+    return firstValueFrom(this.http.put<any>(this.baseURL + "/api/warehouse/"+warehouseId, formValues));
+  }
   setWarehouseToUse(warehouse: any){
     console.log(warehouse);
     localStorage.setItem('warehouseSelect', warehouse);

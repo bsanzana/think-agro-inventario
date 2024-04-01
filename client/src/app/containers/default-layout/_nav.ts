@@ -11,12 +11,18 @@ export const navItems: INavData[] = [
     }
   },{
     title: true,
-    name: 'Usuarios'
+    name: 'Tablas'
   },
   {
     name: 'Usuarios',
     url: '/users',
     iconComponent: { name: 'cilUser' }
+  },
+
+  {
+    name: 'Bodegas',
+    url: '/warehouses/crud',
+    iconComponent: { name: 'cilHome' }
   },
   {
     name: 'Pages',

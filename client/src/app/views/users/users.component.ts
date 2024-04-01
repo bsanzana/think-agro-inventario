@@ -76,6 +76,7 @@ export class UsersComponent {
   }
 
   closeModal(id: string) {
+
     this.loadUsers();
     const boton = document.getElementById(id);
     boton!.click();

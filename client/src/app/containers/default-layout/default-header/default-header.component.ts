@@ -33,9 +33,10 @@ export class DefaultHeaderComponent extends HeaderComponent {
 
   async ngOnInit() {
     this.warehouseSelect = localStorage.getItem("warehouseSelect")!;
-    this.warehouseData = await this.warehouseService.getByIdWarehouses(
+    const response = await this.warehouseService.getByIdWarehouses(
       this.warehouseSelect
     );
+    this.warehouseData = response.warehouse;
   }
   logOut() {
     localStorage.clear();

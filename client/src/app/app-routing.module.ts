@@ -8,6 +8,8 @@ import { LoginComponent } from "./views/pages/login/login.component";
 import { RegisterComponent } from "./views/pages/register/register.component";
 import { UsersComponent } from "./views/users/users.component";
 import { WarehousesComponent } from "./views/warehouses/warehouses.component";
+import { CrudWarehousesComponent } from "./views/warehouses/crud-warehouses/crud-warehouses.component";
+
 import { checkToken } from "./guard/checkToken.guard";
 const routes: Routes = [
   {
@@ -28,7 +30,7 @@ const routes: Routes = [
     component: DefaultLayoutComponent,
     canActivate: [checkToken],
     data: {
-      title: "Home",
+      title: "Inicio",
     },
     children: [
       {
@@ -46,6 +48,12 @@ const routes: Routes = [
       {
         path: "users",
         component: UsersComponent,
+        canActivate: [checkToken],
+      },
+
+      {
+        path: "warehouses/crud",
+        component: CrudWarehousesComponent,
         canActivate: [checkToken],
       },
     ],

@@ -32,7 +32,7 @@ router.get("/", async (req, res) => {
 router.get("/:warehouseId", async (req, res) => {
   const { warehouseId } = req.params;
   const warehouse = await Warehouses.findById(warehouseId);
-  res.json(warehouse);
+  res.json({warehouse:warehouse});
 });
 
 //Consultar por las bodegas encargadas por un usuario ID
@@ -49,7 +49,7 @@ router.post("/create", async (req, res) => {
   const { warehouse } = req.body;
 
   try {
-    const warehouse = await Warehouses.create(req.body);
+    const warehouse = await Warehouses.create(warehouse);
     res.json({ warehouse: warehouse });
   } catch (error) {
     res.json({ error: error.message });
